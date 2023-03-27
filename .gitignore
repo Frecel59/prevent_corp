@@ -1,2 +1,6 @@
-raw_data/
+# Variable d'environment
 .env
+
+
+# Data
+data/
