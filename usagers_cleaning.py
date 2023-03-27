@@ -5,11 +5,8 @@ import pandas as pd
 def get_data_usagers_old():
 
     """
-    Get all the 'old' data sets in 1 dataframe:
-    - coming from the right  directory
-    - get rid of all the missing and null data
-    - get rid of the meaning less data
-    - return a dataframe including a 'mergeable' dataframe
+    Fonction qui retourne toute la data de 2011 a 2018, moins les nulles / manquants / et donnees
+    pas interessantes.
     """
 
     # Chemin vers le dossier contenant les fichiers CSV
@@ -37,11 +34,8 @@ def get_data_usagers_old():
 def get_data_usagers_new():
 
     """
-    Get all the 'new' data sets in 1 dataframe:
-    - coming from the right  directory
-    - get rid of all the missing and null data
-    - get rid of the meaning less data
-    - return a dataframe including a 'mergeable' dataframe
+    Fonction qui retourne toute la data de 2019 a 2021, moins les nulles / manquants / et donnees
+    pas interessantes.
     """
 
     # Chemin vers le dossier contenant les fichiers CSV
@@ -68,7 +62,6 @@ def get_data_usagers_new():
     concatenated_usagers_df2 = concatenated_usagers_df2.astype({'an_nais':int})
 
     return concatenated_usagers2_df
-
 
 def get_usagers_data():
     usagers_df = pd.concat([concatenated_usagers1_df, concatenated_usagers2_df], ignore_index=True)
