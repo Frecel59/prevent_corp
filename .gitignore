@@ -8,4 +8,8 @@ data/
 notebooks/
 .ipynb_checkpoints/
 
+<<<<<<< HEAD
 .python-version
+=======
+.python-version
+>>>>>>> bc6c9c5a8efcb4f5019891fbc55a37b8b3affdbc
