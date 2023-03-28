@@ -1,3 +1,4 @@
+
 # Gestionnaire variable d'environnements
 .env
 
@@ -9,3 +10,4 @@ notebooks/
 .ipynb_checkpoints/
 
 .python-version
+
