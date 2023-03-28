@@ -1,6 +1,13 @@
-# Variable d'environment
+
+# Gestionnaire variable d'environnements
 .env
 
-
-# Data
+# Data storage
 data/
+
+# Notebooks
+notebooks/
+.ipynb_checkpoints/
+
+.python-version
+
