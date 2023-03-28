@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 
-def carac_clean_data_12_18():
+def charac_clean_data_12_18():
     """ Fonction qui nettoies les données des années 2011 à 2018
         et retourne un data frame de toutes ces données
     """
@@ -24,7 +24,7 @@ def carac_clean_data_12_18():
     print("Cleaning Caractéristique de 2012 à 2018 -> Done")
     return data
 
-def carac_clean_data_19_21():
+def charac_clean_data_19_21():
     """ Fonction qui nettoies les données des années 2019 à 2021
         et retourne un data frame de toutes ces données
     """

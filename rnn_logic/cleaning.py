@@ -1,10 +1,10 @@
 import pandas as pd
 import os
 
-from Data_cleaning.carateristic_cleaning import carac_clean_data_12_18, carac_clean_data_19_21
-from Data_cleaning.lieux_cleaning import lieux_clean_data_12_18, lieux_clean_data_19_21
-from Data_cleaning.usagers_cleaning import usagers_clean_data_12_18, usagers_clean_data_19_21
-from Data_cleaning.vehicules_cleaning import vehicules_clean_data_12_18, vehicules_clean_data_19_21
+from data_cleaning.cha_cleaning import charac_clean_data_12_18, charac_clean_data_19_21
+from data_cleaning.lieux_cleaning import lieux_clean_data_12_18, lieux_clean_data_19_21
+from data_cleaning.usagers_cleaning import usagers_clean_data_12_18, usagers_clean_data_19_21
+from data_cleaning.vehicules_cleaning import vehicules_clean_data_12_18, vehicules_clean_data_19_21
 
 def concatenate_function(name, data_1 :pd.DataFrame, data_2 :pd.DataFrame) -> pd.DataFrame:
     """ Fusionne les deux data fram de caracéristique et retourne le
@@ -15,7 +15,7 @@ def concatenate_function(name, data_1 :pd.DataFrame, data_2 :pd.DataFrame) -> pd
 
 
 def clean_data():
-    data_carac = concatenate_function("Caractéristique", carac_clean_data_12_18(), carac_clean_data_19_21())
+    data_carac = concatenate_function("Caractéristique", charac_clean_data_12_18(), charac_clean_data_19_21())
     print(f"Fusion des Dataframe caractéristique 2011-2018 et 2019-2021 -> Done")
     data_lieux = concatenate_function("Lieux", lieux_clean_data_12_18(), lieux_clean_data_19_21())
     print(f"Fusion des Dataframe lieux 2011-2018 et 2019-2021 -> Done")
