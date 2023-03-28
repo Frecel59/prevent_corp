@@ -65,10 +65,11 @@ def clean_lieux_19_21():
     return concatenated_lieux_df2
 
 
-def concat_lieux():
+def concat_lieux(concatenated_lieux_df1, concatenated_lieux_df2):
     """
     Concat des 2 dataframe
     """
+
     lieux_df = pd.concat([concatenated_lieux_df1, concatenated_lieux_df2], ignore_index=True)
 
     return lieux_df
