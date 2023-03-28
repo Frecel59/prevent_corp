@@ -63,6 +63,6 @@ def get_data_usagers_new():
 
     return concatenated_usagers2_df
 
-def get_usagers_data():
+def get_usagers_data(concatenated_usagers1_df, concatenated_usagers2_df):
     usagers_df = pd.concat([concatenated_usagers1_df, concatenated_usagers2_df], ignore_index=True)
     return usagers_df
