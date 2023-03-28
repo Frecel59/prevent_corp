@@ -1,2 +1,11 @@
-raw_data/
+# Gestionnaire variable d'environnements
 .env
+
+# Data storage
+data/
+
+# Notebooks
+notebooks/
+.ipynb_checkpoints/
+
+.python-version
