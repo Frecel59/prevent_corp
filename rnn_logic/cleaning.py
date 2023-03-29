@@ -14,10 +14,15 @@ def concatenate_function(name, data_1 :pd.DataFrame, data_2 :pd.DataFrame) -> pd
     return pd.concat([data_1, data_2], ignore_index=True).sort_values(by="Num_Acc")
 
 
+def clean_characteristics_data():
+    data_carac = concatenate_function("Characteristics", charac_clean_data_12_18(), charac_clean_data_19_21())
+    print(f"Fusion des Dataframe Characteristics 2011-2018 et 2019-2021 -> Done")
+    return data_carac
+
+
 def clean_all_data():
-    data_carac = concatenate_function("Caractéristique", charac_clean_data_12_18(), charac_clean_data_19_21())
-    print(f"Fusion des Dataframe caractéristique 2011-2018 et 2019-2021 -> Done")
-    print(data_carac.shape)
+    data_carac = concatenate_function("Characteristics", charac_clean_data_12_18(), charac_clean_data_19_21())
+    print(f"Fusion des Dataframe Characteristics 2011-2018 et 2019-2021 -> Done")
     data_lieux = concatenate_function("Lieux", lieux_clean_data_12_18(), lieux_clean_data_19_21())
     print(f"Fusion des Dataframe lieux 2011-2018 et 2019-2021 -> Done")
     data_usagers = concatenate_function("Usagers", usagers_clean_data_12_18(), usagers_clean_data_19_21())

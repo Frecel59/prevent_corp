@@ -14,7 +14,6 @@ def charac_clean_data_12_18():
         return dep[:1]
     directory = "data/raw_data/carasteristiques/1"
     files = [file for file in os.listdir(directory) if file.startswith("caracteristiques_") and file.endswith(".csv")]
-    print(files)
     data = pd.DataFrame()
     for file in files:
         df = pd.read_csv(os.path.join(directory, file), sep=',', encoding='ISO-8859-1', engine='python')
@@ -25,7 +24,6 @@ def charac_clean_data_12_18():
     deps_to_delete = [971, 972, 973, 974, 976, 201, 202, 97]
     data = data.drop(data[data['dep'].isin(deps_to_delete)].index)
     print("Cleaning Caractéristique de 2012 à 2018 -> Done")
-    print(data.shape)
     return data
 
 def charac_clean_data_19_21():
@@ -46,7 +44,6 @@ def charac_clean_data_19_21():
     data = data.drop(data[data['dep'].isin(deps_to_delete)].index)
     data = data.astype({'dep': int})
     print("Cleaning Characteristics de 2019 à 2021 -> Done")
-    print(data.shape)
     return data
 
 if __name__ == "__main__":
