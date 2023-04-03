@@ -2,8 +2,8 @@ import pandas as pd
 import os
 
 
-def vehicules_clean_data_12_18():
-    print("Cleaning Véhicules de 2012 à 2018 -> ...")
+def vehicules_clean_data_05_18():
+    print("Cleaning Véhicules de 2005 à 2018 -> ...")
     directory = "data/raw_data/vehicules/1"
     files = [file for file in os.listdir(directory) if file.startswith("vehicules_") and file.endswith(".csv")]
     data = pd.DataFrame()
@@ -13,7 +13,7 @@ def vehicules_clean_data_12_18():
 
     data.dropna(inplace=True)
     data= data.astype({'obs':int, 'obsm':int, 'choc':int, 'manv':int})
-    print("Cleaning Véhicules de 2012 à 2018 -> Done")
+    print("Cleaning Véhicules de 2005 à 2018 -> Done")
     return data
 
 

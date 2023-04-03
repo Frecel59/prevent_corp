@@ -2,13 +2,13 @@ import os
 import pandas as pd
 
 
-def usagers_clean_data_12_18():
+def usagers_clean_data_05_18():
 
     """
-    Fonction qui retourne toute la data de 2011 a 2018, moins les nulles / manquants / et donnees
+    Fonction qui retourne toute la data de 2005 a 2018, moins les nulles / manquants / et donnees
     pas interessantes.
     """
-    print("Cleaning Usagers de 2012 à 2018 -> ...")
+    print("Cleaning Usagers de 2005 à 2018 -> ...")
     directory = "data/raw_data/usagers/1"
     files = [file for file in os.listdir(directory) if file.startswith("usagers_") and file.endswith(".csv")]
 
@@ -24,7 +24,7 @@ def usagers_clean_data_12_18():
     data.dropna(inplace=True)
 
     data = data.astype({'locp':int, 'etatp':int, 'an_nais':int, 'trajet':int})
-    print("Cleaning Usagers de 2012 à 2018 -> Done")
+    print("Cleaning Usagers de 2005 à 2018 -> Done")
     return data
 
 

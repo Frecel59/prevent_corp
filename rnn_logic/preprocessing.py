@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 
-from rnn_logic.cleaning import clean_all_data, clean_characteristics_data
+from rnn_logic.cleaning import clean_characteristics_data
 
 def prepare_data_for_model(data:pd.DataFrame):
     print("Preparing data for the model -> ...")

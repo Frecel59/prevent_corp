@@ -1,6 +1,6 @@
 import pandas as pd
 
-def clean_data(data: pd.DataFrame):
+def import_clean_data(data: pd.DataFrame):
     """
 
 

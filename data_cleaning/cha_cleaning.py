@@ -1,29 +1,36 @@
 import pandas as pd
 import os
 
-
-def charac_clean_data_12_18():
-    """ Fonction qui nettoies les données des années 2011 à 2018
+def charac_clean_data_05_18():
+    """ Fonction qui nettoies les données des années 2005 à 2018
         et retourne un data frame de toutes ces données
     """
+    print("Cleaning Characteristics de 2005 à 2018 ...")
+
     def update_format(dep):
         if dep > 90:
             dep = str(dep)
             return dep[:2]
         dep = str(dep)
         return dep[:1]
-    directory = "data/raw_data/carasteristiques/1"
+
+    directory = "data/raw_data/characteristiques/1"
     files = [file for file in os.listdir(directory) if file.startswith("caracteristiques_") and file.endswith(".csv")]
     data = pd.DataFrame()
     for file in files:
+        if file == "caracteristiques_2009.csv":
+            df = pd.read_csv(os.path.join(directory, file), sep='\t', encoding='ISO-8859-1', engine='python')
+            data = pd.concat([data, df], ignore_index=True)
+            continue
         df = pd.read_csv(os.path.join(directory, file), sep=',', encoding='ISO-8859-1', engine='python')
         data = pd.concat([data, df], ignore_index=True)
-    data = data.drop(columns=["jour", "hrmn", "com", "adr", "lat", "long", "gps"])
+
+    data = data.drop(columns=["hrmn", "com", "adr", "lat", "long", "gps"])
     data["dep"] = data["dep"].apply(update_format)
     data = data.astype({'dep': int})
-    deps_to_delete = [971, 972, 973, 974, 976, 201, 202, 97]
+    deps_to_delete = [20, 97]
     data = data.drop(data[data['dep'].isin(deps_to_delete)].index)
-    print("Cleaning Caractéristique de 2012 à 2018 -> Done")
+    print("Cleaning Caractéristique de 2005 à 2018 -> Done")
     return data
 
 def charac_clean_data_19_21():
@@ -31,7 +38,7 @@ def charac_clean_data_19_21():
         et retourne un data frame de toutes ces données
     """
     print("Cleaning Characteristics de 2019 à 2021 ...")
-    directory = "data/raw_data/carasteristiques/2"
+    directory = "data/raw_data/characteristiques/2"
     files = [file for file in os.listdir(directory) if file.startswith("caracteristiques_") and file.endswith(".csv")]
     data = pd.DataFrame()
 
