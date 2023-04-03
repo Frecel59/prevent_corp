@@ -11,7 +11,9 @@ def concatenate_function(name, data_1 :pd.DataFrame, data_2 :pd.DataFrame) -> pd
         data farm avec les accidents dans lo'dre d'arrivé
     """
     print(f"Fusion des Dataframe {name} 2005-2018 et 2019-2021 ...")
-    return pd.concat([data_1, data_2], ignore_index=True).sort_values(by="Num_Acc")
+    data = pd.concat([data_1, data_2], ignore_index=True).sort_values(by="Num_Acc")
+    print(f"Fusion des Dataframe {name} 2005-2018 et 2019-2021 -> Done ")
+    return data
 
 def save_clean_data(name, data:pd.DataFrame):
     data.to_csv(f"data/clean_data/{name}_final.csv", index=False)
@@ -28,17 +30,14 @@ def clean_characteristics_data():
 
 def clean_all_data():
     data_carac = concatenate_function("Characteristics", charac_clean_data_05_18(), charac_clean_data_19_21())
-    print(f"Fusion des Dataframe Characteristics 2005-2018 et 2019-2021 -> Done")
     data_lieux = concatenate_function("Lieux", lieux_clean_data_05_18(), lieux_clean_data_19_21())
-    print(f"Fusion des Dataframe lieux 2005-2018 et 2019-2021 -> Done")
     data_usagers = concatenate_function("Usagers", usagers_clean_data_05_18(), usagers_clean_data_19_21())
-    print(f"Fusion des Dataframe Usagers 2005-2018 et 2019-2021 -> Done")
     data_vehicules = concatenate_function("Véhicules", vehicules_clean_data_05_18(), vehicules_clean_data_19_21())
-    print(f"Fusion des Dataframe Véhicules 2005-2018 et 2019-2021 -> Done")
 
+    print("Fin de la création des Dataframe pour toutes les catégories !")
     return data_carac, data_lieux, data_usagers, data_vehicules
 
 
 
 if __name__ == "__main__":
-    data = clean_characteristics_data()
+    data_carac, data_lieux, data_usagers, data_vehicules = clean_all_data()
