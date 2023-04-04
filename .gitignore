@@ -4,11 +4,13 @@ notebooks
 .DS_Store
 
 
+
 # Gestionnaire variable d'environnements
 .env
 
 # Data storage
 data/
+training_outputs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
