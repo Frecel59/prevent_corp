@@ -9,3 +9,6 @@ scikit-learn
 
 fastapi
 uvicorn
+
+# GCP
+google-cloud-storage

@@ -68,6 +68,10 @@ class SarimaModel():
             print(f"✅ Model saved to GCP at gs://{self.bucket_name}/{remote_path}")
 
     def load_model(self):
+        if not os.path.isdir('training_outputs'):
+            os.mkdir('training_outputs')
+        if not os.path.isdir('training_outputs/models'):
+            os.mkdir('training_outputs/models')
         if not os.path.isfile(self.model_path):
 
             storage_client = storage.Client.from_service_account_json("service_account.json")

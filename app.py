@@ -18,4 +18,5 @@ def predict(dep:int):
     # model.predict sur le data[dep]
     predictions = model.predict()
     #return les 12 mois
-    return predictions
+    print(type(predictions))
+    return {i:float(pred) for (i, pred) in enumerate(predictions.values)}
