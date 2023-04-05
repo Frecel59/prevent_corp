@@ -6,5 +6,5 @@ pytest:
 install:
 	@pip install -r requirements.txt
 
-streamlit:
-	-@streamlit run api/app.py
+run_api:
+	@uvicorn app:app --reload
