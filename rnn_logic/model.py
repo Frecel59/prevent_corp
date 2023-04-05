@@ -20,11 +20,15 @@ class ArimaModel():
 
 
     def fit(self,X_train):
+        print(" Fittig the model -> ...")
         self.model = ARIMA(X_train)
         self.model = self.model.fit()
+        print("✅ Fittig the model -> Done")
 
     def predict(self, step:int = 12):
+        print(" Prediction -> ...")
         self.predictions = self.model.forecast(step)
+        print("✅ Prediction -> Done")
         return self.predictions
 
     def evaluate(self,y_test):
