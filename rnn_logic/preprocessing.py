@@ -113,7 +113,7 @@ def create_fold(data: pd.DataFrame, n_fold:int):
     '''
     CUT n_fold for the cross validation
     '''
-    tscv = TimeSeriesSplit(n_splits=n_fold)
+    tscv = TimeSeriesSplit(n_splits=n_fold, test_size=12)
     folds = []
 
     for train_index, test_index in tscv.split(data):

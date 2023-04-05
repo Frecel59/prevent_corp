@@ -3,26 +3,35 @@ import os
 import time
 import pickle
 import numpy as np
-from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
+from statsmodels.tsa.statespace.sarimax import SARIMAX, SARIMAXResults
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 
 from google.cloud import storage
 
-class ArimaModel():
+class SarimaModel():
     '''
     Structure for the Arima Model
     '''
-    def __init__(self,dep):
+    def __init__(self,dep, params=None):
         self.dep = dep
         self.model_path = os.path.join("training_outputs", "models", f"{self.dep}.pkl")
         self.bucket_name = os.environ.get('BUCKET_NAME')
 
+        if not params:
+            self.load_model()
+        else:
+            self.order= params[dep]['order']
+            self.seasonal_order = params[dep]['seasonal_order']
+
 
     def fit(self,X_train):
         print(" Fittig the model -> ...")
-        self.model = ARIMA(X_train)
-        self.model = self.model.fit()
+        self.model = SARIMAX(X_train,
+                            order=self.order,
+                            seasonal_order=self.seasonal_order,
+                            initialization='approximate_diffuse')
+        self.model = self.model.fit(disp=False)
         print("✅ Fittig the model -> Done")
 
     def predict(self, step:int = 12):
@@ -77,7 +86,7 @@ class ArimaModel():
                 return
 
         # Load the model
-        self.model = ARIMAResults.load(self.model_path)
+        self.model = SARIMAXResults.load(self.model_path)
 
 
     def save_result(self,target="local"):

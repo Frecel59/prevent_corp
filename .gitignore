@@ -6,6 +6,8 @@ notebooks
 # service account key
 service_account.json
 
+best_params.pickle
+
 
 # Gestionnaire variable d'environnements
 .env

@@ -1,24 +1,20 @@
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import pickle
 
-from rnn_logic.model import ArimaModel
+from rnn_logic.model import SarimaModel
 from rnn_logic.preprocessing import create_fold
 from rnn_logic.data import import_clean_data
 
 
-def cross_val(data: pd.DataFrame, n_fold: int, dep: int):
-    # Create folds
-    # Create the train / test in this fold
-    # Fit one model
-    # Evaluate it
-    # get the mean scores result
-    # Save the result
+def cross_val(data: pd.DataFrame, n_fold: int, dep: int, params: dict):
+
 
     # After the cross val
     # retrain on the whole dataset (exept last year for the demo)
     folds = create_fold(data, n_fold)
-    model = ArimaModel(dep)
+    model = SarimaModel(dep, params)
     mse_list = []
     rmse_list = []
     mape_list = []
@@ -49,9 +45,13 @@ def cross_val(data: pd.DataFrame, n_fold: int, dep: int):
     #model.save_results
     return results
 
+def import_json():
+    with open('best_params.pickle', 'rb') as handle:
+        best_params = pickle.load(handle)
+        return best_params
+
 if __name__=="__main__":
+    params = import_json()
     data = import_clean_data()
-    cross_val(data, 5, 1)
-    model= ArimaModel(1)
-    model.load_model()
-    print(model.predict())
+    for dep in tqdm(params.keys()):
+        cross_val(data, 8, dep,params)
