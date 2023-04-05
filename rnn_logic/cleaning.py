@@ -19,12 +19,9 @@ def save_clean_data(name, data:pd.DataFrame):
     data.to_csv(f"data/clean_data/{name}_final.csv", index=False)
     return
 
-
-
 def clean_characteristics_data():
     data_carac = concatenate_function("Characteristics", charac_clean_data_05_18(), charac_clean_data_19_21())
     print(f"Fusion des Dataframe Characteristics 2005-2018 et 2019-2021 -> Done")
-    save_clean_data("Characteristiques", data_carac)
     return data_carac
 
 
@@ -37,7 +34,6 @@ def clean_all_data():
     print("Fin de la création des Dataframe pour toutes les catégories !")
     return data_carac, data_lieux, data_usagers, data_vehicules
 
-
-
 if __name__ == "__main__":
-    data_carac, data_lieux, data_usagers, data_vehicules = clean_all_data()
+    data = clean_characteristics_data()
+    print(data.shape)

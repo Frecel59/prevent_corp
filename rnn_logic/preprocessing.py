@@ -1,30 +1,58 @@
 # importation :
 import numpy as np
 import pandas as pd
+from sklearn.model_selection import TimeSeriesSplit
 
 from rnn_logic.cleaning import clean_characteristics_data
 
-def prepare_data_for_model(data:pd.DataFrame):
-    print("Preparing data for the model -> ...")
-    data.an = data.an.map({11:11,
-                           12:12,
-                           13:13,
-                           14:14,
-                           15:15,
-                           16:16,
-                           17:17,
-                           18:18,
-                           2019:19,
-                           2020:20,
-                           2021:21})
-    data['date'] = pd.to_datetime(data['an']*10000 + data['mois']*100 + 1, format='%y%m%d')
-    data = data.drop(columns=['an', 'mois', 'lum', 'agg', 'int', 'atm', 'col'])
+
+def load_data_for_time_serie():
+    '''
+    Load the data from our bucket to the current local
+    '''
+    # if not  data.csv exist :
+    #     telecharge data
+    # data = pd.read_csv("path/todata.csv")
+
+    pass
+
+
+
+def prepare_data_for_model():
+    print("\nPreparing data for the model -> ...")
+
+    data= clean_characteristics_data()
+    data = data.drop(['lum', 'agg', 'atm', 'int', 'col', "jour"], axis=1)
+    year_mapping = {5: 2005, 6: 2006, 7: 2007, 8: 2008, 9: 2009,
+    10: 2010, 11: 2011, 12: 2012, 13: 2013, 14: 2014,
+    15: 2015, 16: 2016, 17: 2017, 18: 2018, 19: 2019,
+    20: 2020, 21: 2021}
+
+    data['an'] = data['an'].replace(year_mapping)
+    data['date'] = pd.to_datetime(data['an'].astype(str) + '-' + data['mois'].astype(str) + '-' + "1")
+    data.drop(['mois', 'an'], axis=1, inplace=True)
+    data['date'] = pd.to_datetime(data['date'])
+    data['year_month'] = data['date'].dt.to_period('M')
     data = pd.pivot_table(data, values='Num_Acc', index='date', columns='dep', aggfunc='count')
-    for i in range(95):
-        if data[i+1].isna().sum()> 0:
-            data[i+1]=data[i+1].fillna(data[i+1].mean())
-    data = data.astype(int)
+    for i in range(1,95):
+        if i == 20:
+            continue
+        if data[i].isna().sum()> 0:
+            data[i]=data[i].fillna(data[i].mean())
+
+    data.loc['2020-03-01'] = data.loc[['2019-03-01', '2018-03-01', '2017-03-01']].mean()
+    data.loc['2020-04-01'] = data.loc[['2019-04-01', '2018-04-01', '2017-04-01']].mean()
+    data.loc['2020-05-01'] = data.loc[['2019-05-01', '2018-05-01', '2017-05-01']].mean()
+
+    data.loc['2020-10-01'] = data.loc[['2019-10-01', '2018-10-01', '2017-10-01']].mean()
+    data.loc['2020-11-01'] = data.loc[['2019-11-01', '2018-11-01', '2017-11-01']].mean()
+    data.loc['2020-12-01'] = data.loc[['2019-12-01', '2018-12-01', '2017-12-01']].mean()
+
+    data.loc['2021-04-01'] = data.loc[['2020-04-01', '2019-04-01', '2018-04-01']].mean()
+    data.loc['2021-05-01'] = data.loc[['2020-05-01', '2019-05-01', '2018-05-01']].mean()
+
     print("Preparing data for the model -> Done")
+    data.to_pickle(f"data/clean_data/Charatesitiques_final.pkl")
 
     return data
 
@@ -81,5 +109,18 @@ def full_preprocessing():
 
     return train_sequence, test_sequence
 
+def create_fold(data: pd.DataFrame, n_fold:int):
+    '''
+    CUT n_fold for the cross validation
+    '''
+    tscv = TimeSeriesSplit(n_splits=n_fold, test_size=12)
+    folds = []
+
+    for train_index, test_index in tscv.split(data):
+        folds.append((train_index, test_index))
+
+    return folds
+
 if __name__ == "__main__":
-    full_preprocessing()
+    data = prepare_data_for_model()
+    print(data.shape)
