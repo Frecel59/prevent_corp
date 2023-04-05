@@ -11,10 +11,12 @@ best_params.pickle
 
 # Gestionnaire variable d'environnements
 .env
+.env.yaml
 
 # Data storage
 data/
 training_outputs/
+Assembling_code
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
