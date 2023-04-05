@@ -3,7 +3,8 @@ import pandas as pd
 from tqdm import tqdm
 
 from rnn_logic.model import ArimaModel
-from rnn_logic.preprocessing import create_fold, prepare_data_for_model
+from rnn_logic.preprocessing import create_fold
+from rnn_logic.data import import_clean_data
 
 
 def cross_val(data: pd.DataFrame, n_fold: int, dep: int):
@@ -49,7 +50,7 @@ def cross_val(data: pd.DataFrame, n_fold: int, dep: int):
     return results
 
 if __name__=="__main__":
-    data = prepare_data_for_model()
+    data = import_clean_data()
     cross_val(data, 5, 1)
     model= ArimaModel(1)
     model.load_model()
