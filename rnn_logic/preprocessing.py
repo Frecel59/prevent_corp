@@ -52,6 +52,7 @@ def prepare_data_for_model():
     data.loc['2021-05-01'] = data.loc[['2020-05-01', '2019-05-01', '2018-05-01']].mean()
 
     print("Preparing data for the model -> Done")
+    data.to_pickle(f"data/clean_data/Charatesitiques_final.pkl")
 
     return data
 

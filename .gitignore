@@ -3,6 +3,8 @@ notebooks
 .python-version
 .DS_Store
 
+# service account key
+service_account.json
 
 
 # Gestionnaire variable d'environnements

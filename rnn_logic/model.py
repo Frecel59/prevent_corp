@@ -7,6 +7,8 @@ from statsmodels.tsa.arima.model import ARIMA, ARIMAResults
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_percentage_error
 
+from google.cloud import storage
+
 class ArimaModel():
     '''
     Structure for the Arima Model
@@ -14,6 +16,7 @@ class ArimaModel():
     def __init__(self,dep):
         self.dep = dep
         self.model_path = os.path.join("training_outputs", "models", f"{self.dep}.pkl")
+        self.bucket_name = os.environ.get('BUCKET_NAME')
 
 
     def fit(self,X_train):
@@ -34,13 +37,43 @@ class ArimaModel():
         '''
         Save the model on GCP or local
         '''
-            # save model locally
+        # save model locally
         self.model.save(self.model_path)
         print("✅ Model saved locally")
 
-    def load_model(self,target='local'):
+        if target == 'gcp':
+
+            storage_client = storage.Client.from_service_account_json("service_account.json")
+
+            bucket = storage_client.get_bucket(self.bucket_name)
+
+            remote_path = self.model_path
+
+            blob = bucket.blob(remote_path)
+            blob.upload_from_filename(self.model_path)
+
+            print(f"✅ Model saved to GCP at gs://{self.bucket_name}/{remote_path}")
+
+    def load_model(self):
+        if not os.path.isfile(self.model_path):
+
+            storage_client = storage.Client.from_service_account_json("service_account.json")
+
+            bucket = storage_client.get_bucket(self.bucket_name)
+
+            remote_path = self.model_path
+
+            blob = bucket.blob(remote_path)
+            if blob.exists():
+
+                blob.download_to_filename(self.model_path)
+                print(f"✅ Model loaded from GCP at gs://{self.bucket_name}/{remote_path}")
+            else:
+                print("❌ Model not found on local or GCP")
+                return
+
+        # Load the model
         self.model = ARIMAResults.load(self.model_path)
-        pass
 
 
     def save_result(self,target="local"):

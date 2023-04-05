@@ -44,14 +44,13 @@ def cross_val(data: pd.DataFrame, n_fold: int, dep: int):
         'mean_rmse': mean_rmse,
         'mean_mape': mean_mape
     }
-    model.save_model()
+    model.save_model(target="gcp")
     #model.save_results
     return results
 
 if __name__=="__main__":
     data = prepare_data_for_model()
     cross_val(data, 5, 1)
-    model = ArimaModel(1)
+    model= ArimaModel(1)
     model.load_model()
     print(model.predict())
-    print(type(model.model))
