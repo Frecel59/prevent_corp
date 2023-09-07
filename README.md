@@ -4,9 +4,8 @@ Objectif
 Développer un 'worflow' afin de prédire les accidents mensuels de la route en France (hors Corse et DOM/TOM). L'application vise à permettre aux autorités et aux organisations de mieux se préparer et de réduire les accidents de la route. Durant ce projet, la démo finale a été présentée, révélant le potentiel et l'efficacité de notre solution. Il a été passionnant de travailler sur ce projet unique, appelé "Prevent Corp", où notre mission était de développer 95 modèles distincts SARIMA pour arriver à une solution prédictive robuste et inédite.
 
 Fichiers & Explications
-
 cleaning.py
-Ce script est dédié à la préparation des data. Il contient des fonctions qui nettoient et fusionnent les jeux de données pour différents aspects tels que les caractéristiques, les lieux, les usagers et les véhicules.
+Ce script est dédié à la préparation des données. Il contient des fonctions qui nettoient et fusionnent les jeux de données pour différents aspects tels que les caractéristiques, les lieux, les usagers et les véhicules.
 
 cross_val.py
 Ce fichier gère la validation croisée des modèles. Il utilise le modèle SARIMA pour évaluer les performances sur différents plis de données.
