@@ -7,7 +7,6 @@ Explorer les hyper parametres de nos modeles par departement
 Ajouter d’autre zones géographiques: plus de data et mieux ce sera
 Apporter de la consistance lors de la récolte des données.
 
-
 Grandes étapes:
 Extraction des raws data provenant du site du gouvernement francais
 Nettoyage, filtration et premieres analyses afin de garder uniquement les data cohérentes
